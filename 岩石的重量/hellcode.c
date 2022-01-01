@@ -1,0 +1,4 @@
+#include <stdio.h>/* This is a simplified version of the previous submision, and is not meant to be understood */
+#include <malloc.h>/* I wrote this to prove that this OJ problem can be solved using C within 20 lines of code */
+int max_orz(int a, int b) { if(a > b)return a; return b; }
+int main() { int N; scanf("%d", &N); int* this_layer = (int*)malloc(sizeof(int) * N), * next_layer = NULL, * W = (int*)malloc(sizeof(int) * N); for(int i = 0; i < N; ++i) { scanf("%d", &W[i]); this_layer[i] = 0; }for(int i = 0; i < N - 1; ++i) { next_layer = (int*)malloc(sizeof(int) * (N - 1 - i)); if(i % 2 == 0) for(int j = 0; j < N - 1 - i; ++j) next_layer[j] = max_orz(this_layer[j + 1] + W[j], this_layer[j] + W[j + i + 2 - 1]); else for(int j = 0; j < N - 1 - i; ++j) next_layer[j] = max_orz(this_layer[j], this_layer[j + 1]); free(this_layer); this_layer = next_layer; }printf("%d\n", next_layer[0]); free(next_layer); free(W); return 0; }
